@@ -4,7 +4,18 @@ import re, cfg, socket, UtilSPD
 
 CHAT_RE_MESSAGE = re.compile(r"^:\w+!\w+@\w+\.tmi\.twitch\.tv PRIVMSG #\w+ :")
 
-#def log(msg, user):
+def sendMessage(s, message):
+    s.send('PRIVMSG {} :{} \r\n'.format(cfg.CHAN, message).encode())
+    chatLog("the_automaton", message)
+
+
+def chatLog(user, msg):
+    chatLog = cfg.ChatLog
+    TD = UtilSPD.formatedTDSB()
+    message = "{} {}: {}".format(TD, user, msg)
+    print(message)
+    with open(chatLog, 'a') as cLog:
+        cLog.write(message+"\n")
 
 
 def chat():
@@ -21,9 +32,7 @@ def chat():
         else:
             msg = CHAT_RE_MESSAGE.sub("", response).strip()
             user = re.search(r"\w+", response).group(0)
-            DT = UtilSPD.formatedTDSB()
-            print("{} {} :{}".format(DT ,user,msg))
+            chatLog(user, msg)
             if msg.lower() == "!test":
-                s.send('PRIVMSG {} :{} \r\n'.format(cfg.CHAN, "Hello").encode())
-
+                sendMessage(s, "Hello")
 chat()
