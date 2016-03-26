@@ -1,6 +1,12 @@
-import re, cfg, socket
+#!/usr/bin/env python3
+
+import re, cfg, socket, UtilSPD
 
 CHAT_RE_MESSAGE = re.compile(r"^:\w+!\w+@\w+\.tmi\.twitch\.tv PRIVMSG #\w+ :")
+
+#def log(msg, user):
+
+
 def chat():
     s = socket.socket()
     s.connect((cfg.HOST, cfg.PORT))
@@ -15,7 +21,8 @@ def chat():
         else:
             msg = CHAT_RE_MESSAGE.sub("", response).strip()
             user = re.search(r"\w+", response).group(0)
-            print("{} :{}".format(user,msg))
+            DT = UtilSPD.formatedTDSB()
+            print("{} {} :{}".format(DT ,user,msg))
             if msg.lower() == "!test":
                 s.send('PRIVMSG {} :{} \r\n'.format(cfg.CHAN, "Hello").encode())
 
