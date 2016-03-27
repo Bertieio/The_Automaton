@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-import re, cfg, socket, UtilSPD
+import re, cfg, socket, UtilSPD, TwitchAPI
 
 CHAT_RE_MESSAGE = re.compile(r"^:\w+!\w+@\w+\.tmi\.twitch\.tv PRIVMSG #\w+ :")
 
@@ -35,4 +35,3 @@ def chat():
             chatLog(user, msg)
             if msg.lower() == "!test":
                 sendMessage(s, "Hello")
-chat()
