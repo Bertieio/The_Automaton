@@ -1,0 +1,18 @@
+#Login details and CHAN info
+HOST = "irc.twitch.tv"              # the Twitch IRC server
+PORT = 6667                         # always use port 6667!
+NICK = ""            # your bot's Twitch username, lowercase
+PASS = "oauth:" # your Twitch OAuth token
+CHAN = "#" # name of #channel the bot should work in
+CHANNAME = "" # name of channel the bot should work in
+ChatLog = "chatlog.txt" # chat log file
+
+DELAY = 0
+RATE = (100/30) # messages per second, For regular users, this limit is set at 20 messages per 30 seconds; moderators may send up to 100 messages per 30 seconds.
+
+
+#Currency info
+CurName = "Guinea"
+CurNamePlural = "Guineas"
+TimeBetweenPayments = 5*60 #Seconds - use mins*60
+AmountGiven = 15

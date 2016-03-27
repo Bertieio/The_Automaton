@@ -13,7 +13,7 @@ def exit(message, user):
 
 def sendMessage(s, message):
     s.send('PRIVMSG {} :{} \r\n'.format(cfg.CHAN, message).encode())
-    chatLog("the_automaton", message)
+    chatLog(message, cfg.NICK)
 
 def chatters(message):
     if message == "!chatters":
