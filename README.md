@@ -6,12 +6,11 @@ Currently it is mostly incomplete with only the framework of a bot. But hopefull
 
 TODO:
 
-[ ] get currency working
+- [ ] get currency working
+- [ ] MySQL integration
+- [ ] command system
+- [ ] Rank system
 
-[ ] MySQL integration
-
-[ ] command system
-
-[ ] Rank system
+Please look at cfg.py_Example for he config file (you will need to rename it to cfg.py)
 
 If you are here because you want to create your own bot look at [Chat.py](Chat.py) and [TwitchAPI.py](TwitchAPI.py).
