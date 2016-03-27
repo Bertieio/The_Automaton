@@ -1,13 +1,13 @@
 import requests, time, dateutil.parser
 
 def getMods(user):
-    response = requests.get("https://tmi.twitch.tv/group/user/" + user + "/chatters").json()
+    response = requests.get("https://tmi.twitch.tv/group/user/" + user.lower() + "/chatters").json()
     mods = response["chatters"]["moderators"]
     return mods
 
 
 def online(user):
-    response = requests.get("https://api.Twitch.tv/kraken/streams/" + user).json()
+    response = requests.get("https://api.Twitch.tv/kraken/streams/" + user.lower()).json()
     if response["stream"] is not None:
         return True
     else:
@@ -24,25 +24,25 @@ def getGame(user):
 
 
 def getGameOnline(user):
-    response = requests.get("https://api.twitch.tv/kraken/streams/" + user).json()
+    response = requests.get("https://api.twitch.tv/kraken/streams/" + user.lower()).json()
     if response["stream"] is not None:
         return response["stream"]["game"]
 
 
 def getGameOffline(user):
-    response = requests.get("https://api.twitch.tv/kraken/channels/" + user).json()
+    response = requests.get("https://api.twitch.tv/kraken/channels/" + user.lower()).json()
     if response["game"] is not None:
         return ["game"]
 
 
 def getChatters(user):
-    response = requests.get("https://tmi.twitch.tv/group/user/" + user + "/chatters").json()
+    response = requests.get("https://tmi.twitch.tv/group/user/" + user.lower() + "/chatters").json()
     chatters = response["chatters"]["moderators"] + response["chatters"]["staff"] + response["chatters"]["admins"] + response["chatters"]["global_mods"] + response["chatters"]["viewers"]
     return chatters
 
 
 def Uptime(user):
-    response = requests.get("https://api.twitch.tv/kraken/streams/" + user).json()
+    response = requests.get("https://api.twitch.tv/kraken/streams/" + user.lower()).json()
     startTime = response["stream"]["created_at"]
     uptime = str(dateutil.parser.parse(startTime))
     compTime = int(time.time()) - (int(time.mktime(datetime.datetime.strptime(Uptime, '%Y-%m-%d %H:%M:%S+00:00').timetuple())))

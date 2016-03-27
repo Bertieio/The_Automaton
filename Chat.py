@@ -4,12 +4,23 @@ import re, cfg, socket, UtilSPD, TwitchAPI
 
 CHAT_RE_MESSAGE = re.compile(r"^:\w+!\w+@\w+\.tmi\.twitch\.tv PRIVMSG #\w+ :")
 
+
+def exit(message, user):
+    if message == "!exit" and user == cfg.CHANNAME.lower():
+        quit()
+
+
+
 def sendMessage(s, message):
     s.send('PRIVMSG {} :{} \r\n'.format(cfg.CHAN, message).encode())
     chatLog("the_automaton", message)
 
+def chatters(message):
+    if message == "!chatters":
+        chatters = TwitchAPI.getChatters(cfg.CHANNAME)
+        print(str(chatters))
 
-def chatLog(user, msg):
+def chatLog(msg, user):
     chatLog = cfg.ChatLog
     TD = UtilSPD.formatedTDSB()
     message = "{} {}: {}".format(TD, user, msg)
@@ -32,6 +43,8 @@ def chat():
         else:
             msg = CHAT_RE_MESSAGE.sub("", response).strip()
             user = re.search(r"\w+", response).group(0)
-            chatLog(user, msg)
+            chatLog(msg, user)
+            exit(msg, user)
+            #chatters(msg)
             if msg.lower() == "!test":
                 sendMessage(s, "Hello")
